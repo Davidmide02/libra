@@ -14,9 +14,10 @@ import {
   BellIcon,
   CalendarIcon,
   ChartPieIcon,
-  Cog6ToothIcon,
+  // Cog6ToothIcon,
   DocumentDuplicateIcon,
   FolderIcon,
+  ArrowRightStartOnRectangleIcon,
   HomeIcon,
   UsersIcon,
   XMarkIcon,
@@ -28,7 +29,7 @@ import {
 
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
+  { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
   { name: "Team", href: "#", icon: UsersIcon, current: false },
   { name: "Projects", href: "#", icon: FolderIcon, current: false },
   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
@@ -124,7 +125,7 @@ export default function Layout({ children }: LayoutProps) {
                       </ul>
                     </li>
                     <li>
-                      <div className="text-xs font-semibold leading-6 text-gray-400">
+                      {/* <div className="text-xs font-semibold leading-6 text-gray-400">
                         Your teams
                       </div>
                       <ul role="list" className="-mx-2 mt-2 space-y-1">
@@ -146,18 +147,19 @@ export default function Layout({ children }: LayoutProps) {
                             </a>
                           </li>
                         ))}
-                      </ul>
+                      </ul> */}
                     </li>
                     <li className="mt-auto">
                       <a
                         href="#"
                         className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                       >
-                        <Cog6ToothIcon
+              
+                        <ArrowRightStartOnRectangleIcon
                           aria-hidden="true"
                           className="h-6 w-6 shrink-0"
                         />
-                        Settings
+                        Logout
                       </a>
                     </li>
                   </ul>
@@ -233,11 +235,11 @@ export default function Layout({ children }: LayoutProps) {
                     href="#"
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                   >
-                    <Cog6ToothIcon
+                    <ArrowRightStartOnRectangleIcon
                       aria-hidden="true"
                       className="h-6 w-6 shrink-0"
                     />
-                    Settings
+                    Logout
                   </a>
                 </li>
               </ul>

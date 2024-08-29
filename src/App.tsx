@@ -2,10 +2,10 @@
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
 import "./App.css";
-import Home from "./pages/home";
+// import Home from "./pages/home";
 import { BrowserRouter as Router } from "react-router-dom";
 import CustomRoute from "./router";
-import Loading from "./components/loader";
+// import Loading from "./components/loader";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -14,8 +14,8 @@ function App() {
     <>
       <Router>
         <CustomRoute />
-        <Home />
-        <Loading/>
+        {/* <Home /> */}
+        {/* <Loading/> */}
         {/* <p className="bg-green-300">okay let's see</p> */}
       </Router>
     </>
