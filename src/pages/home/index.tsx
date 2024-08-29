@@ -3,21 +3,21 @@ import libaryImage from "../../assets/library.jpg";
 const Home = () => {
   return (
     <div className="home p-8 flex flex-col-reverse items-center md:flex-row md:justify-between md:items-stretch">
-      <div className="bg-blue-300 flex flex-col justify-around md:p-2 md:w-[45%]">
-        <h1 className="text-2xl font-bold md:text-4xl">
+      <div className="b flex flex-col justify-center md:p-2 md:w-[45%]">
+        <h1 className="text-2xl font-bold md:text-3xl py-3">
           Your gateway to a world of knowledge. Explore, learn, and discover.
         </h1>
-        <p className="pt-2 mt-4 leading-8 text-2xl">
+        <p className="leading-none md:leading-7 text-xl py-2">
           where every page opens a door to discovery. Immerse yourself in a vast
           ocean of knowledge, from timeless classics and cutting-edge research
           to hidden gems and local treasures.
         </p>
-        <div className="btn mt-4 flex justify-evenly">
-          <button>Get started</button>
+        <div className="btn flex justify-around">
+          <button className="border-blue-200 border-2 rounded-md px-2">Get started</button>
           <button>Login</button>
         </div>
       </div>
-      <div className="home-img bg-red-400">
+      <div className="home-img bg-red-400 md:w-[50%]">
         <img src={libaryImage} alt="" width={900} />
       </div>
       {/* Welocome to Libra outlet a hide gem for passionate readers */}
