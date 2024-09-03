@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from "../../assets/logowhite.svg";
 import {
   Dialog,
   DialogBackdrop,
@@ -27,7 +28,6 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 
-
 const navigation = [
   { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
   { name: "Team", href: "#", icon: UsersIcon, current: false },
@@ -36,11 +36,11 @@ const navigation = [
   { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
   { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
 ];
-const teams = [
-  { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
-  { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-  { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
-];
+// const teams = [
+//   { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
+//   { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
+//   { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
+// ];
 const userNavigation = [
   { name: "Your profile", href: "#" },
   { name: "Sign out", href: "#" },
@@ -91,13 +91,10 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
               </TransitionChild>
               {/* Sidebar component, swap this element with another sidebar if you like */}
-              <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
-                <div className="flex h-16 shrink-0 items-center">
-                  <img
-                    alt="Your Company"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    className="h-8 w-auto"
-                  />
+              <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4 ring-1 ring-indigo-300">
+                {/* ring-white/10 */}
+                <div className="flex h-16 shrink-0 items-center mt-2">
+                  <img alt="Your Company" src={logo} className="h-10 w-[15%]" />
                 </div>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -109,8 +106,8 @@ export default function Layout({ children }: LayoutProps) {
                               href={item.href}
                               className={classNames(
                                 item.current
-                                  ? "bg-gray-800 text-white"
-                                  : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                                  ? "bg-indigo-400 text-white"
+                                  : "text-gray-400 hover:bg-indigo-400 hover:text-white",
                                 "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                               )}
                             >
@@ -152,9 +149,8 @@ export default function Layout({ children }: LayoutProps) {
                     <li className="mt-auto">
                       <a
                         href="#"
-                        className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                        className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-indigo-400 hover:text-white"
                       >
-              
                         <ArrowRightStartOnRectangleIcon
                           aria-hidden="true"
                           className="h-6 w-6 shrink-0"
@@ -172,13 +168,9 @@ export default function Layout({ children }: LayoutProps) {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
-            <div className="flex h-16 shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
-              />
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
+            <div className="flex h-16 shrink-0 items-center mt-2">
+              <img alt="Your Company" src={logo} className="h-10 w-[25%]" />
             </div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -190,8 +182,8 @@ export default function Layout({ children }: LayoutProps) {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-800 text-white"
-                              : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                              ? "bg-indigo-400 text-white"
+                              : "text-gray-400 hover:bg-indigo-400 hover:text-white",
                             "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                           )}
                         >
@@ -205,7 +197,7 @@ export default function Layout({ children }: LayoutProps) {
                     ))}
                   </ul>
                 </li>
-                <li>
+                {/* <li>
                   <div className="text-xs font-semibold leading-6 text-gray-400">
                     Your teams
                   </div>
@@ -216,12 +208,12 @@ export default function Layout({ children }: LayoutProps) {
                           href={team.href}
                           className={classNames(
                             team.current
-                              ? "bg-gray-800 text-white"
-                              : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                              ? "bg-indigo-400 text-white"
+                              : "text-gray-400 hover:bg-indigo-400 hover:text-white",
                             "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                           )}
                         >
-                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-white bg-indigo-600 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
                             {team.initial}
                           </span>
                           <span className="truncate">{team.name}</span>
@@ -229,7 +221,7 @@ export default function Layout({ children }: LayoutProps) {
                       </li>
                     ))}
                   </ul>
-                </li>
+                </li> */}
                 <li className="mt-auto">
                   <a
                     href="#"
