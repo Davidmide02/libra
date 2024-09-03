@@ -1,15 +1,20 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
 export default function Login() {
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
+      remember: false,
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email address").required("Required"),
       password: Yup.string().required("Required"),
+      remember: Yup.boolean().required("Required"),
     }),
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -17,14 +22,6 @@ export default function Login() {
   });
   return (
     <>
-      {/*
-          This example requires updating your template:
-  
-          ```
-          <html class="h-full bg-gray-50">
-          <body class="h-full">
-          ```
-        */}
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
@@ -62,11 +59,16 @@ export default function Login() {
                     value={formik.values.email}
                     required
                     autoComplete="email"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className={classNames(
+                      formik.touched.email && formik.errors.email
+                        ? "ring-red-500"
+                        : "",
+                      "block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    )}
                   />
                 </div>
-                {formik.touched.email && formik.errors.password ? (
-                  <p>{formik.errors.email}</p>
+                {formik.touched.email && formik.errors.email ? (
+                  <p className="text-red-500">{formik.errors.email}</p>
                 ) : null}
               </div>
 
@@ -87,24 +89,32 @@ export default function Login() {
                     value={formik.values.password}
                     required
                     autoComplete="current-password"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className={classNames(
+                      formik.touched.password && formik.errors.password
+                        ? "ring-red-500"
+                        : "",
+                      "block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    )}
                   />
                 </div>
                 {formik.touched.password && formik.errors.password ? (
-                  <p>{formik.errors.password}</p>
+                  <p className="text-red-500">{formik.errors.password}</p>
                 ) : null}
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <input
-                    id="remember-me"
-                    name="remember-me"
+                    id="remember"
+                    name="remember"
                     type="checkbox"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    required
                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
                   <label
-                    htmlFor="remember-me"
+                    htmlFor="remember"
                     className="ml-3 block text-sm leading-6 text-gray-900"
                   >
                     Remember me
@@ -201,16 +211,6 @@ export default function Login() {
               </div>
             </div>
           </div>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Start a 14 day free trial
-            </a>
-          </p>
         </div>
       </div>
     </>
