@@ -43,13 +43,20 @@ const cardItem = [
 
 const Material = () => {
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    // <div>
+      <div className="flex flex-col md:grid md:grid-cols-3 md:gap-4 font-serif">
         {cardItem.map(({ image, catergory, title }) => {
-          return <Card image={image} category={catergory} title={title} author="John Doe" />;
+          return (
+            <Card
+              image={image}
+              category={catergory}
+              title={title}
+              author="John Doe"
+            />
+          );
         })}
       </div>
-    </div>
+    // </div>
   );
 };
 

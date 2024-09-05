@@ -5,6 +5,7 @@ import Home from "../pages/home";
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
 import Material from "../pages/material";
+import SingleMaterial from "../pages/material/singleMaterial";
 
 const CustomRoute = () => {
   return (
@@ -16,6 +17,14 @@ const CustomRoute = () => {
           element={
             <Layout>
               <Suspense>{<Material />}</Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/material/:single"
+          element={
+            <Layout>
+              <Suspense>{<SingleMaterial />}</Suspense>
             </Layout>
           }
         />
