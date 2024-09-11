@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { defaultData, Materialtype } from "./data";
 import { useState } from "react";
+import Action from "../../../components/action";
 
 const columnHelper = createColumnHelper<Materialtype>();
 
@@ -21,12 +22,12 @@ const columns = [
     footer: "author",
   }),
   columnHelper.accessor("availability", {
-    header: "Availability",
+    header: "Available",
     cell: (info) => {
       const value = info.getValue();
       return value ? "True" : "False";
     },
-    footer: "availability",
+    footer: "available",
   }),
   columnHelper.accessor("request", {
     header: "Request",
@@ -39,12 +40,19 @@ const columns = [
   columnHelper.accessor("count", {
     header: "count",
     cell: (info) => info.renderValue(),
-    footer: "status",
+    footer: "count",
+  }),
+  columnHelper.display({
+    id: "action",
+    header: "Action",
+    cell: () => <Action />,
+    // cell: () =><button className="bg-indigo-600 rounded-md px-[0.6rem]">⏸️</button>,
+    footer: "action",
   }),
 ];
 
 const AdminMaterial = () => {
-  const [data, setData] = useState(() => [...defaultData]);
+  const [data] = useState(() => [...defaultData]);
 
   const table = useReactTable({
     data,
@@ -95,7 +103,10 @@ const AdminMaterial = () => {
           {table.getFooterGroups().map((footerGroup) => (
             <tr key={footerGroup.id}>
               {footerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id}
+                className="th border-b bg-indigo-600 text-white bg-opacity-75 p-4 text-center text-sm font-medium"
+
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
