@@ -7,6 +7,8 @@ import {
 import { defaultData, Materialtype } from "./data";
 import { useState } from "react";
 import Action from "../../../components/action";
+import { PlusIcon } from "@heroicons/react/24/outline";
+// import { CustomTable } from "../../../components/table";
 
 const columnHelper = createColumnHelper<Materialtype>();
 
@@ -38,7 +40,7 @@ const columns = [
     footer: "status",
   }),
   columnHelper.accessor("count", {
-    header: "count",
+    header: "Count",
     cell: (info) => info.renderValue(),
     footer: "count",
   }),
@@ -46,7 +48,6 @@ const columns = [
     id: "action",
     header: "Action",
     cell: () => <Action />,
-    // cell: () =><button className="bg-indigo-600 rounded-md px-[0.6rem]">⏸️</button>,
     footer: "action",
   }),
 ];
@@ -62,6 +63,14 @@ const AdminMaterial = () => {
 
   return (
     <div className="relative block w-full overflow-x-auto overflow-y-visible pb-20 align-middle">
+      <div>
+        <div className="head text-center p-2 mb-2">
+          <h1 className="text-2xl">Materials</h1>
+        </div>
+        <div className="add flex flex-col items-end mb-2">
+          <PlusIcon className="h-10 w-20 p-2 bg-gray-100 border-2 cursor-pointer"></PlusIcon>
+        </div>
+      </div>
       <table className="min-w-full border-separate border-spacing-0">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -103,9 +112,9 @@ const AdminMaterial = () => {
           {table.getFooterGroups().map((footerGroup) => (
             <tr key={footerGroup.id}>
               {footerGroup.headers.map((header) => (
-                <th key={header.id}
-                className="th border-b bg-indigo-600 text-white bg-opacity-75 p-4 text-center text-sm font-medium"
-
+                <th
+                  key={header.id}
+                  className="th border-b bg-indigo-600 text-white bg-opacity-75 p-4 text-center text-sm font-medium"
                 >
                   {header.isPlaceholder
                     ? null
@@ -119,6 +128,7 @@ const AdminMaterial = () => {
           ))}
         </tfoot>
       </table>
+      {/* <CustomTable columns data/> */}
     </div>
   );
 };
