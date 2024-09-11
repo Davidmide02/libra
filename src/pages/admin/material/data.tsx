@@ -1,35 +1,83 @@
-export type Person = {
-  firstName: string
-  lastName: string
-  age: number
-  visits: number
-  status: string
-  progress: number
-}
+export type Materialtype = {
+  title: string;
+  author: string[];
+  availability: boolean;
+  request: string;
+  status: string;
+  count: number;
+};
 
-export const defaultData: Person[] = [
+export const defaultData: Materialtype[] = [
   {
-    firstName: 'tanner',
-    lastName: 'linsley',
-    age: 24,
-    visits: 100,
-    status: 'In Relationship',
-    progress: 50,
+    title: "tanner",
+    author: ["linsley"],
+    availability: true,
+    request: "pending",
+    status: "accepted",
+    count: 3,
   },
   {
-    firstName: 'tandy',
-    lastName: 'miller',
-    age: 40,
-    visits: 40,
-    status: 'Single',
-    progress: 80,
+    title: "tandy",
+    author: ["miller"],
+    availability: true,
+    request: "pending",
+    status: "rejected",
+    count: 0,
   },
   {
-    firstName: 'joe',
-    lastName: 'dirte',
-    age: 45,
-    visits: 20,
-    status: 'Complicated',
-    progress: 10,
+    title: "joe",
+    author: ["dirte"],
+    availability: false,
+    request: "pending",
+    status: "accepted",
+    count: 5,
   },
-]
+  {
+    title: "tanner",
+    author: ["linsley"],
+    availability: true,
+    request: "pending",
+    status: "accepted",
+    count: 3,
+  },
+  {
+    title: "tandy",
+    author: ["miller"],
+    availability: true,
+    request: "pending",
+    status: "rejected",
+    count: 0,
+  },
+  {
+    title: "joe",
+    author: ["dirte"],
+    availability: false,
+    request: "pending",
+    status: "accepted",
+    count: 5,
+  },
+  {
+    title: "tanner",
+    author: ["linsley"],
+    availability: true,
+    request: "pending",
+    status: "accepted",
+    count: 3,
+  },
+  {
+    title: "tandy",
+    author: ["miller"],
+    availability: true,
+    request: "pending",
+    status: "rejected",
+    count: 0,
+  },
+  {
+    title: "joe",
+    author: ["dirte"],
+    availability: false,
+    request: "pending",
+    status: "accepted",
+    count: 5,
+  },
+];

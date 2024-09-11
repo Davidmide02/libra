@@ -4,51 +4,47 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { defaultData, Person} from "./data";
+import { defaultData, Materialtype } from "./data";
 import { useState } from "react";
-// type User = {
-//   firstName: string;
-//   lastName: string;
-//   age: number;
-//   visits: number;
-//   progress: number;
-//   status: string;
-// };
 
-const columnHelper = createColumnHelper<Person>();
+const columnHelper = createColumnHelper<Materialtype>();
 
 const columns = [
-  columnHelper.accessor("firstName", {
+  columnHelper.accessor("title", {
+    header: "Title",
     cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    footer: "title",
   }),
-  columnHelper.accessor((row) => row.lastName, {
-    id: "lastName",
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Last Name</span>,
-    footer: (info) => info.column.id,
+  columnHelper.accessor("author", {
+    cell: (info) => info.getValue(),
+    header: () => "Author",
+    footer: "author",
   }),
-  columnHelper.accessor("age", {
-    header: () => "Age",
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
+  columnHelper.accessor("availability", {
+    header: "Availability",
+    cell: (info) => {
+      const value = info.getValue();
+      return value ? "True" : "False";
+    },
+    footer: "availability",
   }),
-  columnHelper.accessor("visits", {
-    header: () => <span>Visits</span>,
-    footer: (info) => info.column.id,
+  columnHelper.accessor("request", {
+    header: "Request",
+    footer: "request",
   }),
   columnHelper.accessor("status", {
     header: "Status",
-    footer: (info) => info.column.id,
+    footer: "status",
   }),
-  columnHelper.accessor("progress", {
-    header: "Profile Progress",
-    footer: (info) => info.column.id,
+  columnHelper.accessor("count", {
+    header: "count",
+    cell: (info) => info.renderValue(),
+    footer: "status",
   }),
 ];
 
 const AdminMaterial = () => {
-  const [data, setData] = useState(()=>[...defaultData]);
+  const [data, setData] = useState(() => [...defaultData]);
 
   const table = useReactTable({
     data,
@@ -57,58 +53,62 @@ const AdminMaterial = () => {
   });
 
   return (
-    <div className="p-2">
-    <table>
-      <thead>
-        {table.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map(header => (
-              <th key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map(row => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map(cell => (
-              <td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-      <tfoot>
-        {table.getFooterGroups().map(footerGroup => (
-          <tr key={footerGroup.id}>
-            {footerGroup.headers.map(header => (
-              <th key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.footer,
-                      header.getContext()
-                    )}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </tfoot>
-    </table>
-    <div className="h-4" />
-    {/* rerender here */}
-    <button className="border p-2">
-      Rerender
-    </button>
-  </div>
+    <div className="relative block w-full overflow-x-auto overflow-y-visible pb-20 align-middle">
+      <table className="min-w-full border-separate border-spacing-0">
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th
+                  key={header.id}
+                  className="th border-b bg-indigo-600 text-white bg-opacity-75 p-4 text-center text-sm font-medium"
+                >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody className="divide-y divide-gray-200 bg-white">
+          {table.getRowModel().rows.map((row) => (
+            <tr
+              key={row.id}
+              className="sm:even:bg-gray-50 hover:bg-indigo-300 hover:text-white even:hover:bg-indigo-300"
+            >
+              {row.getVisibleCells().map((cell) => (
+                <td
+                  key={cell.id}
+                  className="text-brand-textBlack w-max max-w-full overflow-visible p-4 text-center text-sm"
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          {table.getFooterGroups().map((footerGroup) => (
+            <tr key={footerGroup.id}>
+              {footerGroup.headers.map((header) => (
+                <th key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.footer,
+                        header.getContext()
+                      )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </tfoot>
+      </table>
+    </div>
   );
 };
 
