@@ -1,15 +1,10 @@
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender, Table } from "@tanstack/react-table";
 
-const CustomTable = ({ data, columns }) => {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+type CustomTableProps<T> = {
+  table: Table<T>;
+};
+
+const CustomTable = <T,>({ table }: CustomTableProps<T>) => {
   return (
     <table className="min-w-full border-separate border-spacing-0">
       <thead>

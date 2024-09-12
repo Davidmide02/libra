@@ -1,6 +1,5 @@
 import {
   createColumnHelper,
-  flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -8,7 +7,8 @@ import { defaultData, Materialtype } from "./data";
 import { useState } from "react";
 import Action from "../../../components/action";
 import { PlusIcon } from "@heroicons/react/24/outline";
-// import { CustomTable } from "../../../components/table";
+import CustomTable from "../../../components/customtable";
+
 
 const columnHelper = createColumnHelper<Materialtype>();
 
@@ -71,7 +71,7 @@ const AdminMaterial = () => {
           <PlusIcon className="h-10 w-20 p-2 bg-gray-100 border-2 cursor-pointer"></PlusIcon>
         </div>
       </div>
-      <table className="min-w-full border-separate border-spacing-0">
+      {/* <table className="min-w-full border-separate border-spacing-0">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -127,8 +127,8 @@ const AdminMaterial = () => {
             </tr>
           ))}
         </tfoot>
-      </table>
-      {/* <CustomTable columns data/> */}
+      </table> */}
+      <CustomTable table={table} />
     </div>
   );
 };

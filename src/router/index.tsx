@@ -7,6 +7,7 @@ import Register from "../pages/auth/register";
 import Material from "../pages/material";
 import SingleMaterial from "../pages/material/singleMaterial";
 import AdminMaterial from "../pages/admin/material";
+import User from "../pages/admin/user";
 
 const CustomRoute = () => {
   return (
@@ -26,6 +27,14 @@ const CustomRoute = () => {
           element={
             <Layout>
               <Suspense>{<AdminMaterial />}</Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/User"
+          element={
+            <Layout>
+              <Suspense>{<User />}</Suspense>
             </Layout>
           }
         />
