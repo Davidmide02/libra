@@ -13,49 +13,25 @@ const CustomRoute = () => {
   return (
     <div className="w-full h-full">
       <Routes>
-        <Route path="/logout" element={<Suspense>{<Home />}</Suspense>} />
-        <Route
-          path="/material"
-          element={
-            <Layout>
-              <Suspense>{<Material />}</Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/adminmaterial"
-          element={
-            <Layout>
-              <Suspense>{<AdminMaterial />}</Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/User"
-          element={
-            <Layout>
-              <Suspense>{<User />}</Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/material/:single"
-          element={
-            <Layout>
-              <Suspense>{<SingleMaterial />}</Suspense>
-            </Layout>
-          }
-        />
-        <Route path="/login" element={<Suspense>{<Login />}</Suspense>} />
+        <Route path="/" element={<Layout />}>
+          <Route
+            path="/material"
+            element={<Suspense>{<Material />}</Suspense>}
+          />
+          <Route
+            path="/adminmaterial"
+            element={<Suspense>{<AdminMaterial />}</Suspense>}
+          />
+          <Route path="/User" element={<Suspense>{<User />}</Suspense>} />
+          <Route
+            path="/material/:single"
+            element={<Suspense>{<SingleMaterial />}</Suspense>}
+          />
+        </Route>
+        <Route index path="/" element={<Suspense>{<Home />}</Suspense>} />
+        <Route path="/logout" element={<Suspense>{<Login />}</Suspense>} />
         <Route path="/register" element={<Suspense>{<Register />}</Suspense>} />
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <Suspense>{<Home />}</Suspense>
-            </Layout>
-          }
-        />
+        <Route path="/login" element={<Suspense>{<Login />}</Suspense>} />
       </Routes>
     </div>
   );

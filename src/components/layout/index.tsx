@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+// import React, { ReactElement, useState } from "react";
+import { useState } from "react";
 import logo from "../../assets/logowhite.svg";
+import { Outlet } from "react-router-dom";
 import {
   Dialog,
   DialogBackdrop,
@@ -13,13 +15,13 @@ import {
 import {
   Bars3Icon,
   BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
+  // CalendarIcon,
+  // ChartPieIcon,
+  // DocumentDuplicateIcon,
+  // FolderIcon,
   ArrowRightStartOnRectangleIcon,
-  HomeIcon,
-  UsersIcon,
+  // HomeIcon,
+  // UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -27,20 +29,19 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import { UserNav, AdminNav } from "../../router/routes";
 
-const navigation = [
-  { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
-  { name: "User", href: "/user", icon: UsersIcon, current: false },
-  {
-    name: "Material",
-    href: "/adminmaterial",
-    icon: FolderIcon,
-    current: false,
-  },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
-];
+const userRole = "user";
+const navFn = () => {
+  if (userRole === "user") {
+    return UserNav;
+  }
+
+  return AdminNav;
+};
+
+const navigation = navFn();
+// console.log();
 
 const userNavigation = [
   { name: "Your profile", href: "#" },
@@ -51,11 +52,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export default function Layout({ children }: LayoutProps) {
+export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -283,7 +280,9 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           <main className="py-10">
-            <div className="px-4 sm:px-6 lg:px-8">{children}</div>
+            <div className="px-4 sm:px-6 lg:px-8">
+              <Outlet />
+            </div>
           </main>
         </div>
       </div>
