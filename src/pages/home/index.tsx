@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import libaryImage from "../../assets/library.jpg";
 import logo from "../../assets/logo.svg";
-// import Card from "../../components/card";
-// import logo from "../../assets/logo.svg";
 
 const Home = () => {
   return (
@@ -11,7 +9,7 @@ const Home = () => {
         <div className="logo flex items-center">
           <img src={logo} alt="logo" className="w-[15%]" />
         </div>
-        <div className="auth flex w-[50%] bg-green-400 justify-between md:w-auto">
+        <div className="auth flex w-[50%] justify-between md:w-auto">
           <Link to={"/login"}>
             <button className="p-1 border-2 rounded-md text-indigo-600 border-indigo-600 hover:bg-gray-100">
               Log in
@@ -24,6 +22,7 @@ const Home = () => {
           </Link>
         </div>
       </div>
+
       <div className="home p-8 flex flex-col-reverse items-center md:flex-row md:justify-between md:items-stretch">
         <div className="b flex flex-col justify-center md:p-2 md:w-[45%]">
           <div className="title-des">
@@ -58,22 +57,10 @@ const Home = () => {
         <div className="home-img md:w-[50%]">
           <img src={libaryImage} alt="" width={900} />
         </div>
-        {/* Welocome to Libra outlet a hide gem for passionate readers */}
       </div>
-      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card image={logo} />
-        <Card image={logo} />
-        <Card image={logo} />
-
-        <Card image={logo} />
-      </div> */}
     </>
   );
 };
 
 export default Home;
-// Whether you're embarking on a
-//           quest for ancient wisdom or exploring the latest innovations, our
-//           extensive collection and intuitive search features ensure you’ll find
-//           exactly what you’re looking for. Dive in and let your journey through
-//           the world of books and information begin here!
+

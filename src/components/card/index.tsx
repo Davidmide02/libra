@@ -1,4 +1,3 @@
-// import React from 'react'
 import { Link } from "react-router-dom";
 
 type CardProp = {
@@ -10,7 +9,7 @@ type CardProp = {
 
 const Card = ({ title, image, author, category }: CardProp) => {
   return (
-    <div className="control bg-gray-50 p-2 rounded-xl h-[70%] mt-4 md:mt-0">
+    <div className="card control bg-gray-50 p-2 rounded-xl h-[70%] mt-4 md:mt-0">
       <div className="img bg-gray-200 rounded-xl w-auto h-[50%]">
         <img
           src={image}
