@@ -23,7 +23,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="home p-8 flex flex-col-reverse items-center md:flex-row md:justify-between md:items-stretch">
+      <div className="home p-8 flex flex-col-reverse items-center md:flex-row md:justify-between md:items-center">
         <div className="b flex flex-col justify-center md:p-2 md:w-[45%]">
           <div className="title-des">
             <h1 className="text-2xl font-bold md:text-3xl py-3">

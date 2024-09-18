@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Layout from "../components/layout";
 import Home from "../pages/home";
 import Login from "../pages/auth/login";
@@ -19,12 +19,9 @@ const CustomRoute = () => {
           <Route
             path="/"
             element={
-              <>
+              <ProtectedRoute>
                 <Layout />
-                <ProtectedRoute>
-                  <Outlet />
-                </ProtectedRoute>
-              </>
+              </ProtectedRoute>
             }
           >
             <Route

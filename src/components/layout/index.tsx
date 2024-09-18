@@ -15,13 +15,7 @@ import {
 import {
   Bars3Icon,
   BellIcon,
-  // CalendarIcon,
-  // ChartPieIcon,
-  // DocumentDuplicateIcon,
-  // FolderIcon,
   ArrowRightStartOnRectangleIcon,
-  // HomeIcon,
-  // UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {

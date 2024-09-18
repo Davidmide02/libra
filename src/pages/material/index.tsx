@@ -44,7 +44,7 @@ const cardItem = [
 ];
 
 const Material = () => {
-  console.log('number here',cardItem.length) 
+
   return (
     <div className="flex flex-col md:grid md:grid-cols-3 md:gap-4 font-serif">
       {cardItem.map(({ image, catergory, title, id }) => {
@@ -58,6 +58,7 @@ const Material = () => {
           />
         );
       })}
+    
     </div>
   );
 };
