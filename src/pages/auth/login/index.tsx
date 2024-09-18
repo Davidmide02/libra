@@ -1,10 +1,14 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import logo from "../../../assets/logo.svg";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../protectRoute/authProvider";
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 export default function Login() {
+  const auth = useAuth();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -18,6 +22,10 @@ export default function Login() {
     }),
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      console.log("form submitted here bruh");
+      // make api call for auth
+      auth?.login();
+      navigate('/material')
     },
   });
   return (
@@ -31,7 +39,7 @@ export default function Login() {
           />
 
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-           Welcome back
+            Welcome back
           </h2>
         </div>
 
@@ -123,12 +131,12 @@ export default function Login() {
                 </div>
 
                 <div className="text-sm leading-6">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="font-semibold text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -143,6 +151,14 @@ export default function Login() {
             </form>
 
             <div>
+              <div className="register text-center mt-2 text-sm">
+                <Link to={"/register"} className="">
+                  Do not have account?
+                  <span className="ml-1 font-medium text-indigo-600 cursor-pointer">
+                    Register
+                  </span>
+                </Link>
+              </div>
               <div className="relative mt-10">
                 <div
                   aria-hidden="true"
@@ -158,8 +174,8 @@ export default function Login() {
               </div>
 
               <div className="mt-6 grid grid-cols-1 gap-4">
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
                 >
                   <svg
@@ -187,7 +203,7 @@ export default function Login() {
                   <span className="text-sm font-semibold leading-6">
                     Google
                   </span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
