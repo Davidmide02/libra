@@ -41,7 +41,6 @@ const navFn = () => {
 };
 
 const navigation = navFn();
-// console.log();
 
 const userNavigation = [
   { name: "Your profile", href: "#" },
