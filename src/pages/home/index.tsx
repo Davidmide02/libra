@@ -1,7 +1,53 @@
 import { Link } from "react-router-dom";
-import libaryImage from "../../assets/library.jpg";
+// import libaryImage from "../../assets/library.jpg";
 import logo from "../../assets/logo.svg";
-
+import { CustomeCarousel } from "../../components/carousel";
+import img from "../../assets/homeimg/illu.avif";
+import img1 from "../../assets/homeimg/illu1.avif";
+import img2 from "../../assets/homeimg/illu2.avif";
+import img3 from "../../assets/homeimg/illuc.avif";
+import Footer from "../../components/footer";
+const cardItem = [
+  {
+    img: img1,
+    title: "Creativity",
+    des: "Mathematics",
+    id: "1",
+  },
+  {
+    img: img3,
+    title: "Curiousity",
+    des: "English",
+    id: "2",
+  },
+  {
+    img: img2,
+    title: "Idea",
+    des: "Technology",
+    id: "3",
+  },
+  {
+    img: img,
+    title: "Intuition",
+    des: "Mathematics",
+    id: "4",
+  },
+  // {
+  //   img: img,
+  //   title: "Quest",
+  //   des: "Mathematics",
+  //   id: "5",
+  // },
+  // {
+  //   img: img,
+  //   title: "Spark",
+  //   des: "Mathematics",
+  //   id: "6",
+  // },
+];
+<h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+  Support center
+</h2>;
 const Home = () => {
   return (
     <>
@@ -11,7 +57,7 @@ const Home = () => {
         </div>
         <div className="auth flex w-[50%] justify-between md:w-auto">
           <Link to={"/login"}>
-            <button className="p-1 border-2 rounded-md text-indigo-600 border-indigo-600 hover:bg-gray-100">
+            <button className="p-1 border-2 rounded-md border-indigo-600 hover:bg-gray-100">
               Log in
             </button>
           </Link>
@@ -24,13 +70,11 @@ const Home = () => {
       </div>
 
       <div className="home p-8 flex flex-col-reverse items-center md:flex-row md:justify-between md:items-center">
-        <div className="b flex flex-col justify-center md:p-2 md:w-[45%]">
+        <div className="flex flex-col justify-center md:p-2 md:w-[45%]">
           <div className="title-des">
             <h1 className="text-2xl font-bold md:text-3xl py-3">
               Your gateway to a world of knowledge.
-              <span className="text-indigo-600 ml-0.5 md:ml-0 font-serif">
-                Explore
-              </span>
+              <span className="text-indigo-600 ml-0.5 font-serif">Explore</span>
               , <span className="text-indigo-600 font-serif">Learn</span>, and{" "}
               <span className="text-indigo-600 font-serif">Discover</span>.
             </h1>
@@ -54,13 +98,23 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="home-img md:w-[50%]">
-          <img src={libaryImage} alt="" width={900} />
+        <div className="home-img md:w-[50%] p-2">
+          <CustomeCarousel data={cardItem} />
         </div>
       </div>
+
+      {/* <section className="tesmonial">
+        <div className="text-center border-t-2 border-b-2 border-gray-300">
+          <h2 className="text-2xl font-bold tracking-tight text-indigo-600 sm:text-3xl">
+            Testimonial
+          </h2>
+        </div>
+
+        <CustomeCarousel data={cardItem} />
+      </section> */}
+      <Footer />
     </>
   );
 };
 
 export default Home;
-
