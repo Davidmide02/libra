@@ -19,21 +19,21 @@ const addItem = async (newItem: string) => {
 };
 
 // Custom hook for fetching items
-export const useFetchItems = () => {
+export const useFetchItems = (endpoint: string) => {
   return useQuery({
     queryKey: ["items"],
-    queryFn: () => callMainApi("api/call"),
+    queryFn: () => callMainApi(endpoint),
     staleTime: Infinity,
     retry: 2,
   });
 };
 
 // Custom hook for adding an item
-export const useAddItem = () => {
+export const useAddItem = (endpoint: string) => {
   //   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: addItem,
+    mutationFn: () => addItem(endpoint),
     onSuccess: () => {
       // Invalidate and refetch the 'items' query to get the updated list
       //   queryClient.invalidateQueries({ queryKey: ["items"] });
