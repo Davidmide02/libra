@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// import libaryImage from "../../assets/library.jpg";
 import logo from "../../assets/logo.svg";
 import { CustomeCarousel } from "../../components/carousel";
 import img from "../../assets/homeimg/illu.avif";
@@ -45,9 +44,7 @@ const cardItem = [
   //   id: "6",
   // },
 ];
-<h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-  Support center
-</h2>;
+
 const Home = () => {
   return (
     <>
@@ -102,16 +99,6 @@ const Home = () => {
           <CustomeCarousel data={cardItem} />
         </div>
       </div>
-
-      {/* <section className="tesmonial">
-        <div className="text-center border-t-2 border-b-2 border-gray-300">
-          <h2 className="text-2xl font-bold tracking-tight text-indigo-600 sm:text-3xl">
-            Testimonial
-          </h2>
-        </div>
-
-        <CustomeCarousel data={cardItem} />
-      </section> */}
       <Footer />
     </>
   );

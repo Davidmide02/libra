@@ -103,7 +103,7 @@ export default function Footer() {
             <Link to={social.href} target="blank">
               <FontAwesomeIcon
                 icon={social.icon}
-                className="w-8 h-6 hover:text-indigo-600"
+                className="w-8 h-6 hover:text-indigo-300"
               />
             </Link>
           ))}
