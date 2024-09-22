@@ -3,6 +3,7 @@ import Card from "../../components/card";
 import img from "../../assets/eng.jfif";
 import img1 from "../../assets/math.jfif";
 import img2 from "../../assets/tech.jfif";
+import { useFetchItems } from "../../utility/tanstackQuery";
 
 const cardItem = [
   {
@@ -44,6 +45,9 @@ const cardItem = [
 ];
 
 const Material = () => {
+  const { data, error } = useFetchItems("/user/material");
+  // https://libra-be-lms.onrender.com/user/material
+  console.log("data here:", data, "error:", error);
 
   return (
     <div className="flex flex-col md:grid md:grid-cols-3 md:gap-4 font-serif">
@@ -58,7 +62,6 @@ const Material = () => {
           />
         );
       })}
-    
     </div>
   );
 };
