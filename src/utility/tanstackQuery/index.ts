@@ -2,12 +2,6 @@
 import axios from "axios";
 import { useQuery, useMutation } from "@tanstack/react-query";
 
-// const API_URL = "https://api.example.com/items";
-// const callMainApi = callApi.create({
-//   throwOnError: true,
-//   resultMode: "onlySuccess",
-//   baseURL: "https://libra-be-lms.onrender.com",
-// });
 const instance = axios.create({
   baseURL: "https://libra-be-lms.onrender.com",
   timeout: 10000,
@@ -19,9 +13,22 @@ const fetchItem = async (enpoint: string) => {
     const response = await instance.get(enpoint);
     return response.data;
   } catch (error) {
-    console.log("error cut here:", error);
-
-    throw error;
+    if (axios.isAxiosError(error)) {
+      // Axios-specific error handling
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Unknown Axios error occurred";
+      console.error("Axios error:", errorMessage);
+      throw errorMessage;
+    } else if (error instanceof Error) {
+      // Standard JavaScript error
+      console.error("General error:", error.message);
+      throw error.message;
+    } else {
+      console.error("Unknown error:", error);
+      throw error;
+    }
   }
 };
 
@@ -30,12 +37,27 @@ const addItem = async <T>(newItem: T, endpoint: string) => {
     const response = await instance.post(endpoint, newItem, {
       headers: { "Content-Type": "application/json" },
     });
-    console.log("adItem fn=>:", newItem);
 
+    console.log("adItem fn=>:", newItem);
     return response.data;
   } catch (error) {
-    console.log("main function error for mutate:", error);
-    throw error;
+    if (axios.isAxiosError(error)) {
+      // Axios-specific error handling
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Unknown Axios error occurred";
+      console.error("Axios error:", errorMessage);
+
+      throw errorMessage;
+    } else if (error instanceof Error) {
+      // Standard JavaScript error
+      console.error("General error:", error.message);
+      throw error.message;
+    } else {
+      console.error("Unknown error:", error);
+      throw error;
+    }
   }
 };
 
@@ -44,7 +66,6 @@ export const useFetchItems = (endpoint: string) => {
   return useQuery({
     queryKey: ["items"],
     queryFn: () => fetchItem(endpoint),
-    // queryFn: () => callMainApi(endpoint),
     staleTime: Infinity,
     retry: 2,
   });

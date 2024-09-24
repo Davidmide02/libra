@@ -6,6 +6,7 @@ import { useAuth } from "../protectRoute/authProvider";
 import { useAddItem } from "../../../utility/tanstackQuery";
 import { Bounce, toast } from "react-toastify";
 import Loading from "../../../components/loader";
+// import axios from "axios";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -34,6 +35,7 @@ export default function Login() {
           email: values.email,
           password: values.password,
         });
+        localStorage.setItem("user", JSON.stringify(loginUser));
         console.log("user login:", loginUser);
         toast.success("Login Successfully", {
           position: "top-right",
@@ -49,19 +51,36 @@ export default function Login() {
 
         auth?.login();
         navigate("/material");
-      } catch (error) {
-        console.log("Cannot log user in. Try again please", error);
-        toast.error("Error occured. Try again", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
+      } catch (error: unknown) {
+        // axio error type
+        console.log(typeof error);
+        console.error("login fn error:", error);
+        if (typeof error === "string") {
+          console.log("upper error:", error);
+          toast.warning(error, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          toast.error("Unknown error occur....", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
       }
     },
   });
@@ -253,3 +272,18 @@ export default function Login() {
     </>
   );
 }
+
+// console.log("Cannot log user in. Try again please", error);
+// console.log('access error', error)
+// const errorMessage = error.response?.data?.message || error.message || "Unknown error occurred";
+// toast.error("Error occured. Try again", {
+//   position: "top-right",
+//   autoClose: 5000,
+//   hideProgressBar: false,
+//   closeOnClick: true,
+//   pauseOnHover: true,
+//   draggable: true,
+//   progress: undefined,
+//   theme: "light",
+//   transition: Bounce,
+// });
