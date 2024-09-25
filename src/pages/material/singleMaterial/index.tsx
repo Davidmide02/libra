@@ -2,16 +2,24 @@ import { useParams } from "react-router-dom";
 import image from "../../../assets/eng.jfif";
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { CardProp } from "..";
 
-const SingleMaterial = () => {
-  const { single } = useParams();
+type ChildComponentProps = {
+  materials: CardProp[] | null;
+};
+
+const SingleMaterial: React.FC<ChildComponentProps> = ({ materials }) => {
+  const { id } = useParams();
+  console.log("material state here: ", materials);
+  const material = materials?.find((mat) => mat._id == id);
+
   return (
     <>
       <div className="single font-serif grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="image md:size-[50%] bg-green-600">
           <img src={image} alt="img" className="rounded-md" />
         </div>
- 
+
         <div className="text flex flex-col items-stretch justify-between">
           <div className="back-btn">
             <Link
@@ -24,9 +32,11 @@ const SingleMaterial = () => {
           </div>
 
           <div className="text-base md:text-xl px-4 text-center md:text-left">
-            <h4>Title: {single}</h4>
-            <p>Author: John Joel</p>
-            <p>Category: Mathematic</p>
+            <h4>Title: {material?.title}</h4>
+            <p>Author: {material?.author}</p>
+            <p>Category: {material?.category || "Tech"}</p>
+            <p>Count: {material?.count}</p>
+            <p></p>
           </div>
 
           <div className="btn bg-gray-400 rounded-md">

@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import Home from "../pages/home";
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
-import Material from "../pages/material";
+import Material, { CardProp } from "../pages/material";
 import SingleMaterial from "../pages/material/singleMaterial";
 import AdminMaterial from "../pages/admin/material";
 import User from "../pages/admin/user";
@@ -20,6 +20,9 @@ export type UserType = {
 };
 const CustomRoute = () => {
   const [user, setUser] = useState<UserType | null>(null);
+  console.log("user route here", user);
+
+  const [materials, setMaterials] = useState<CardProp[] | null>(null);
   return (
     <AuthProvider>
       <div className="w-full h-full">
@@ -31,20 +34,26 @@ const CustomRoute = () => {
                 <Layout />
               </ProtectedRoute>
             }
+            errorElement={<p>Error Occured...Ooop!</p>}
           >
             <Route
               path="/material"
-              element={<Suspense>{<Material />}</Suspense>}
+              element={
+                <Suspense>{<Material setMaterials={setMaterials} />}</Suspense>
+              }
             />
+            <Route
+              path="/material/:id"
+              element={
+                <Suspense>{<SingleMaterial materials={materials} />}</Suspense>
+              }
+            />
+
             <Route
               path="/adminmaterial"
               element={<Suspense>{<AdminMaterial />}</Suspense>}
             />
             <Route path="/User" element={<Suspense>{<User />}</Suspense>} />
-            <Route
-              path="/material/:single"
-              element={<Suspense>{<SingleMaterial />}</Suspense>}
-            />
           </Route>
           {/* protected end here */}
           <Route index path="/" element={<Suspense>{<Home />}</Suspense>} />

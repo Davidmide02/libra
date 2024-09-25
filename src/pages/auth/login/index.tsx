@@ -35,7 +35,7 @@ export default function Login() {
           email: values.email,
           password: values.password,
         });
-        localStorage.setItem("user", JSON.stringify(loginUser));
+        localStorage.setItem("user", loginUser?.token);
         console.log("user login:", loginUser);
         toast.success("Login Successfully", {
           position: "top-right",

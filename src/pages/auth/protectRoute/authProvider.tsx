@@ -3,7 +3,7 @@ import {
   useContext,
   useState,
   ReactNode,
-  // useEffect,
+  useEffect,
 } from "react";
 
 interface AuthContextType {
@@ -21,12 +21,26 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    console.log("You refreshed");
+    console.log("use effect here : ", user);
+
+    if (user) {
+      setIsAuthenticated(true);
+      // return;
+    }
+    setLoading(false);
+  }, []);
 
   const login = () => {
     setIsAuthenticated(true);
   };
 
   const logout = () => {
+    localStorage.removeItem("authToken");
     setIsAuthenticated(false);
   };
 
@@ -36,5 +50,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };

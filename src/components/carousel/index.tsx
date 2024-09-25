@@ -66,7 +66,7 @@ export const CustomeCarousel = ({ data }: CustomeCarouselProp) => {
       swipeable
     >
       {data.map((dat) => (
-        <CardItem img={dat.img} title={dat.title} />
+        <CardItem img={dat.img} title={dat.title} key={dat.title} />
       ))}
     </Carousel>
   );
