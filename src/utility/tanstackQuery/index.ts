@@ -62,9 +62,9 @@ const addItem = async <T>(newItem: T, endpoint: string) => {
 };
 
 // Custom hook for fetching items
-export const useFetchItems = (endpoint: string) => {
+export const useFetchItems = (endpoint: string, queryKey: string) => {
   return useQuery({
-    queryKey: ["items"],
+    queryKey: [`${queryKey}`],
     queryFn: () => fetchItem(endpoint),
     staleTime: Infinity,
     retry: 2,

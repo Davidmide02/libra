@@ -1,11 +1,9 @@
 import Card from "../../components/card";
-
 // import img from "../../assets/eng.jfif";
 import img1 from "../../assets/math.jfif";
 // import img2 from "../../assets/tech.jfif";
 import { useFetchItems } from "../../utility/tanstackQuery";
 import Loading from "../../components/loader";
-import { useEffect } from "react";
 
 export type CardProp = {
   image: string;
@@ -18,17 +16,12 @@ export type CardProp = {
   bookState?: boolean;
 };
 
-type ChildComponentProps = {
-  setMaterials: React.Dispatch<React.SetStateAction<CardProp[] | null>>;
-};
-
-const Material: React.FC<ChildComponentProps> = ({ setMaterials }) => {
-  const { data, isPending, isError } = useFetchItems("/user/material");
-  useEffect(() => {
-    if (data && data.allMaterials) {
-      setMaterials(data.allMaterials);
-    }
-  }, [data, setMaterials]);
+const Material = () => {
+  const queryKey = "items";
+  const { data, isPending, isError } = useFetchItems(
+    "/user/material",
+    queryKey
+  );
 
   return (
     <>

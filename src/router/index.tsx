@@ -4,12 +4,12 @@ import Layout from "../components/layout";
 import Home from "../pages/home";
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
-import Material, { CardProp } from "../pages/material";
 import SingleMaterial from "../pages/material/singleMaterial";
 import AdminMaterial from "../pages/admin/material";
 import User from "../pages/admin/user";
 import { AuthProvider } from "../pages/auth/protectRoute/authProvider";
 import ProtectedRoute from "../pages/auth/protectRoute/protectedRoute";
+import Material from "../pages/material";
 
 export type UserType = {
   message: string;
@@ -22,7 +22,6 @@ const CustomRoute = () => {
   const [user, setUser] = useState<UserType | null>(null);
   console.log("user route here", user);
 
-  const [materials, setMaterials] = useState<CardProp[] | null>(null);
   return (
     <AuthProvider>
       <div className="w-full h-full">
@@ -38,15 +37,11 @@ const CustomRoute = () => {
           >
             <Route
               path="/material"
-              element={
-                <Suspense>{<Material setMaterials={setMaterials} />}</Suspense>
-              }
+              element={<Suspense>{<Material />}</Suspense>}
             />
             <Route
               path="/material/:id"
-              element={
-                <Suspense>{<SingleMaterial materials={materials} />}</Suspense>
-              }
+              element={<Suspense>{<SingleMaterial />}</Suspense>}
             />
 
             <Route

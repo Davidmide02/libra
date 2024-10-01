@@ -22,18 +22,24 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const storedUser = localStorage.getItem("user");
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    console.log("You refreshed");
-    console.log("use effect here : ", user);
-
-    if (user) {
+    if (storedUser !== null) {
+      const user = (storedUser);
       setIsAuthenticated(true);
-      // return;
+      console.log("let see=>:", user);
     }
+    // const user = JSON.parse(localStorage.getItem("user") ?? "{}");
+    // console.log("You refreshed");
+    // console.log("use effect here : ", user);
+
+    // if (user) {
+    //   setIsAuthenticated(true);
+    // return;
+    // }
     setLoading(false);
-  }, []);
+  }, [storedUser]);
 
   const login = () => {
     setIsAuthenticated(true);

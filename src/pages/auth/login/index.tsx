@@ -27,15 +27,13 @@ export default function Login() {
       remember: Yup.boolean().required("Required"),
     }),
     onSubmit: async (values) => {
-      // alert(JSON.stringify(values, null, 2));
-      console.log("form submitted here bruh");
       try {
         // make api call for auth
         const loginUser = await mutateAsync({
           email: values.email,
           password: values.password,
         });
-        localStorage.setItem("user", loginUser?.token);
+        localStorage.setItem("user", JSON.stringify(loginUser));
         console.log("user login:", loginUser);
         toast.success("Login Successfully", {
           position: "top-right",
