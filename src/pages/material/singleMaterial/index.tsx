@@ -8,9 +8,11 @@ import { Bounce, toast } from "react-toastify";
 
 const SingleMaterial = () => {
   const { id } = useParams();
-  const { mutateAsync, isPending: isRequesting } = useAddItem(
-    `user/request/66b4da21c880083f7467974b`
-  );
+  const {
+    mutateAsync,
+    isPending: isRequesting,
+    data: requsted,
+  } = useAddItem(`user/request/${id}`);
   console.log("book id", id);
 
   const queryKey = "item";
@@ -43,12 +45,13 @@ const SingleMaterial = () => {
 
   const handleRequest = async () => {
     console.log("in req", user.userId);
+
     //user; 66c6e62ba2f468cf895d4f3b
     // 66b4da21c880083f7467974b
     // book id :66b4da21c880083f7467974b
-    const userID = { userId: "66c6e62ba2f468cf895d4f3b" };
+    // const userID = { userId: "66c6e62ba2f468cf895d4f3b" };
     try {
-      const res = await mutateAsync(userID);
+      const res = await mutateAsync({ userId: user.userId });
       console.log("req res:", res);
       toast.success(res?.message, {
         position: "top-right",
@@ -119,12 +122,24 @@ const SingleMaterial = () => {
                         Requesting...
                       </button>
                     ) : (
-                      <button
-                        className="bg-indigo-600 text-white rounded-md p-2 w-full"
-                        onClick={handleRequest}
-                      >
-                        Request
-                      </button>
+                      <>
+                        {requsted ? (
+                          <button
+                            className="bg-indigo-300 text-white rounded-md p-2 w-full"
+                            // onClick={handleRequest}
+                            disabled
+                          >
+                            Requested
+                          </button>
+                        ) : (
+                          <button
+                            className="bg-indigo-600 text-white rounded-md p-2 w-full"
+                            onClick={handleRequest}
+                          >
+                            Request
+                          </button>
+                        )}
+                      </>
                     )}
                     {/* <button
                       className="bg-indigo-600 text-white rounded-md p-2 w-full"
@@ -165,3 +180,5 @@ const SingleMaterial = () => {
 };
 
 export default SingleMaterial;
+
+// check if request as been made already when user check out a book
