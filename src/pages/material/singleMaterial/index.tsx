@@ -5,6 +5,7 @@ import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useAddItem, useFetchItems } from "../../../utility/tanstackQuery";
 import Loading from "../../../components/loader";
 import { Bounce, toast } from "react-toastify";
+import { Key } from "react";
 
 const SingleMaterial = () => {
   const { id } = useParams();
@@ -17,39 +18,15 @@ const SingleMaterial = () => {
 
   const queryKey = "item";
   const { data, isPending } = useFetchItems(`user/material/${id}`, queryKey);
-  // const material = data?.material;
-  // console.log("single here:", material);
   const storedUser = localStorage.getItem("user");
 
-  // const userInfo: {
-  //   message: string;
-  //   email: string;
-  //   userId: string;
-  //   token: string;
-  // } | null = storedUser ? storedUser : null;
-  // console.log("requested", userInfo);
+  console.log("mate:", data);
+  console.log(data.material.reviews);
 
-  // console.log('from local storage',storedUser);
   const user = storedUser ? JSON.parse(storedUser) : null;
-  // if (user !== null) {
-  //   console.log("email here", user.email);
-  // }
-
-  // if (storedUser !==null) {
-
-  // console.log('email from local storage',JSON.parse(storedUser?.email));
-
-  // }
-
-  // console.log('email from local storage',JSON.parse(storedUser.email "{}"));
 
   const handleRequest = async () => {
     console.log("in req", user.userId);
-
-    //user; 66c6e62ba2f468cf895d4f3b
-    // 66b4da21c880083f7467974b
-    // book id :66b4da21c880083f7467974b
-    // const userID = { userId: "66c6e62ba2f468cf895d4f3b" };
     try {
       const res = await mutateAsync({ userId: user.userId });
       console.log("req res:", res);
@@ -126,7 +103,6 @@ const SingleMaterial = () => {
                         {requsted ? (
                           <button
                             className="bg-indigo-300 text-white rounded-md p-2 w-full"
-                            // onClick={handleRequest}
                             disabled
                           >
                             Requested
@@ -141,17 +117,31 @@ const SingleMaterial = () => {
                         )}
                       </>
                     )}
-                    {/* <button
-                      className="bg-indigo-600 text-white rounded-md p-2 w-full"
-                      onClick={handleRequest}
-                    >
-                      Request
-                    </button> */}
                   </div>
                 </div>
               </div>
               <div className="review py-2 mt-8">
                 <h3 className="text-center underline text-xl">Reviews:</h3>
+                {data ? (
+                  <div>
+                    {data.material.reviews.map(
+                      (rev: {
+                        _id: Key | null | undefined;
+                        comment: string | null | undefined;
+                        rating: number | null | undefined;
+                        createdAt: string | null;
+                      }) => (
+                        <div key={rev._id}>
+                          <p>comment: {rev.comment}</p>
+                          <p>rate: {rev.rating}/5</p>
+                          <p>created: {rev.createdAt}</p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                ) : (
+                  <p>No reviews</p>
+                )}
                 <p>The book is great</p>
                 <textarea
                   name="review"
