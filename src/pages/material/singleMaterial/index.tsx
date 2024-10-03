@@ -5,23 +5,32 @@ import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useAddItem, useFetchItems } from "../../../utility/tanstackQuery";
 import Loading from "../../../components/loader";
 import { Bounce, toast } from "react-toastify";
-import { Key } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Key, useState } from "react";
 
 const SingleMaterial = () => {
   const { id } = useParams();
+  const [hideReview, setHideReview] = useState(false);
   const {
     mutateAsync,
     isPending: isRequesting,
     data: requsted,
   } = useAddItem(`user/request/${id}`);
+
+  const { mutateAsync: reviewAsync, isPending: isReviewing } = useAddItem(
+    `user/review/${id}`
+  );
+
   console.log("book id", id);
 
   const queryKey = "item";
   const { data, isPending } = useFetchItems(`user/material/${id}`, queryKey);
+
   const storedUser = localStorage.getItem("user");
 
   console.log("mate:", data);
-  console.log(data.material.reviews);
+  console.log(data?.material?.reviews);
 
   const user = storedUser ? JSON.parse(storedUser) : null;
 
@@ -57,15 +66,81 @@ const SingleMaterial = () => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      review: "",
+    },
+    validationSchema: Yup.object({
+      review: Yup.string()
+        .required("It can be empty")
+        .min(3, "review must be  3 or more"),
+    }),
+    onSubmit: async (values) => {
+      try {
+        const revResponse = await reviewAsync({
+          comment: values.review,
+          userId: user.userId,
+          rating: 3,
+        });
+
+        console.log("reviews res:", revResponse);
+        setHideReview(true);
+
+        toast.success("review submitted", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      } catch (error: unknown) {
+        // axio error type
+        console.log(typeof error);
+        console.error("Can't submit review:", error);
+        if (typeof error === "string") {
+          console.log("upper error:", error);
+          toast.warning(error, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        } else {
+          toast.error("Unknown error occur....", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
+      }
+    },
+  });
+
   return (
     <>
+      <p>No data</p>
       {isPending ? (
         <Loading />
       ) : (
         <>
           {data ? (
             <>
-              <div className="single font-serif grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="single grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="image md:size-[50%] bg-green-600">
                   <img src={image} alt="img" className="rounded-md" />
                 </div>
@@ -123,7 +198,7 @@ const SingleMaterial = () => {
               <div className="review py-2 mt-8">
                 <h3 className="text-center underline text-xl">Reviews:</h3>
                 {data ? (
-                  <div>
+                  <div className="my-2 flex flex-col justify-center items-center">
                     {data.material.reviews.map(
                       (rev: {
                         _id: Key | null | undefined;
@@ -131,10 +206,23 @@ const SingleMaterial = () => {
                         rating: number | null | undefined;
                         createdAt: string | null;
                       }) => (
-                        <div key={rev._id}>
-                          <p>comment: {rev.comment}</p>
-                          <p>rate: {rev.rating}/5</p>
-                          <p>created: {rev.createdAt}</p>
+                        <div
+                          key={rev._id}
+                          className="bg-gray-50 hover:shadow-2xl w-[50%] rounded-md p-2 border-2"
+                        >
+                          <div className="userinfo text-sm mb-2 flex justify-between items-center">
+                            <p className="">John</p>
+                            <p> {rev.createdAt?.slice(0, 7)}</p>
+
+                            {/* <img src="" alt="img" /> */}
+                          </div>
+                          <p className="text-md text-sm md:text-base">
+                            {rev.comment}
+                          </p>
+                          {/* <div className="py-[0.07rem] bg-indigo-400 mt-1" /> */}
+                          <div className="rate text-sm flex justify-between items-center mt-2">
+                            <p className="">rate: {rev.rating}/5</p>
+                          </div>
                         </div>
                       )
                     )}
@@ -142,18 +230,42 @@ const SingleMaterial = () => {
                 ) : (
                   <p>No reviews</p>
                 )}
-                <p>The book is great</p>
-                <textarea
-                  name="review"
-                  id=""
-                  cols={40}
-                  rows={5}
-                  placeholder="Drop your review to help others...."
-                  className="border-indigo-600 border-2 p-2 w-full"
-                ></textarea>
-                <button className="bg-indigo-600 text-white rounded-md p-2 w-full">
-                  submit
-                </button>
+                {!hideReview && (
+                  <form action="#" method="post" onSubmit={formik.handleSubmit}>
+                    <div className="rev">
+                      <textarea
+                        name="review"
+                        id=""
+                        cols={40}
+                        rows={5}
+                        placeholder="Drop your review to help others...."
+                        className="border-indigo-600 border-2 p-2 w-full focus:border-none"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.review}
+                        required
+                      ></textarea>
+                      {formik.touched.review && formik.errors.review ? (
+                        <p className="text-red-500">{formik.errors.review}</p>
+                      ) : null}
+                    </div>
+                    {isReviewing ? (
+                      <button
+                        type="submit"
+                        className="bg-indigo-600 text-white rounded-md p-2 w-full"
+                      >
+                        submitting...
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="bg-indigo-600 text-white rounded-md p-2 w-full"
+                      >
+                        submit
+                      </button>
+                    )}
+                  </form>
+                )}
               </div>
             </>
           ) : (

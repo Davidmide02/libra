@@ -30,14 +30,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(true);
       console.log("let see=>:", user);
     }
-    // const user = JSON.parse(localStorage.getItem("user") ?? "{}");
-    // console.log("You refreshed");
-    // console.log("use effect here : ", user);
-
-    // if (user) {
-    //   setIsAuthenticated(true);
-    // return;
-    // }
+    
     setLoading(false);
   }, [storedUser]);
 
