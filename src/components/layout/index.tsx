@@ -22,12 +22,23 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UserNav, AdminNav } from "../../router/routes";
+type UserRoleType = {
+  role: string;
+  email: string;
+  username: string;
+};
+const storedUser = localStorage.getItem("user");
 
-const userRole = "user";
+const userRole: UserRoleType = storedUser
+  ? JSON.parse(storedUser)
+  : { role: "", email: "", username: "" };
+
+console.log(userRole);
+
 const navFn = () => {
-  if (userRole === "user") {
+  if (userRole?.role === "user") {
     return UserNav;
   }
 
@@ -47,6 +58,7 @@ function classNames(...classes: string[]) {
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <>
@@ -91,25 +103,29 @@ export default function Layout() {
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li>
                       <ul role="list" className="-mx-2 space-y-1">
-                        {navigation.map((item) => (
-                          <li key={item.name}>
-                            <Link
-                              to={item.href}
-                              className={classNames(
-                                item.current
-                                  ? "bg-indigo-400 text-white"
-                                  : "text-gray-400 hover:bg-indigo-400 hover:text-white",
-                                "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
-                              )}
-                            >
-                              <item.icon
-                                aria-hidden="true"
-                                className="h-6 w-6 shrink-0"
-                              />
-                              {item.name}
-                            </Link>
-                          </li>
-                        ))}
+                        {navigation.map((item) => {
+                          const isActive = location.pathname === item.href; // Check if current path matches the item's href
+
+                          return (
+                            <li key={item.name}>
+                              <Link
+                                to={item.href}
+                                className={classNames(
+                                  isActive
+                                    ? "bg-indigo-400 text-white"
+                                    : "text-gray-400 hover:bg-indigo-400 hover:text-white",
+                                  "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                                )}
+                              >
+                                <item.icon
+                                  aria-hidden="true"
+                                  className="h-6 w-6 shrink-0"
+                                />
+                                {item.name}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </li>
                     <li></li>
@@ -143,25 +159,28 @@ export default function Layout() {
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.map((item) => (
-                      <li key={item.name}>
-                        <Link
-                          to={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-indigo-400 text-white"
-                              : "text-gray-400 hover:bg-indigo-400 hover:text-white",
-                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
-                          )}
-                        >
-                          <item.icon
-                            aria-hidden="true"
-                            className="h-6 w-6 shrink-0"
-                          />
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
+                    {navigation.map((item) => {
+                      const isActive = location.pathname === item.href; // Check if current path matches the item's href
+                      return (
+                        <li key={item.name}>
+                          <Link
+                            to={item.href}
+                            className={classNames(
+                              isActive
+                                ? "bg-indigo-400 text-white"
+                                : "text-gray-400 hover:bg-indigo-400 hover:text-white",
+                              "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
+                            )}
+                          >
+                            <item.icon
+                              aria-hidden="true"
+                              className="h-6 w-6 shrink-0"
+                            />
+                            {item.name}
+                          </Link>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </li>
                 <li className="mt-auto">

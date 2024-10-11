@@ -35,7 +35,7 @@ const CustomTable = <T,>({ table }: CustomTableProps<T>) => {
             {row.getVisibleCells().map((cell) => (
               <td
                 key={cell.id}
-                className="text-brand-textBlack w-max max-w-full overflow-visible p-4 text-center text-sm"
+                className="text-brand-textBlack w-max max-w-full overflow-visible p-4 text-left text-sm"
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>

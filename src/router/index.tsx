@@ -10,6 +10,7 @@ import User from "../pages/admin/user";
 import { AuthProvider } from "../pages/auth/protectRoute/authProvider";
 import ProtectedRoute from "../pages/auth/protectRoute/protectedRoute";
 import Material from "../pages/material";
+import Dashboard from "../pages/admin/dashboard";
 
 export type UserType = {
   message: string;
@@ -47,6 +48,10 @@ const CustomRoute = () => {
             <Route
               path="/adminmaterial"
               element={<Suspense>{<AdminMaterial />}</Suspense>}
+            />
+            <Route
+              path="/dashboard"
+              element={<Suspense>{<Dashboard />}</Suspense>}
             />
             <Route path="/User" element={<Suspense>{<User />}</Suspense>} />
           </Route>

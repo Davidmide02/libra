@@ -133,7 +133,6 @@ const SingleMaterial = () => {
 
   return (
     <>
-      <p>No data</p>
       {isPending ? (
         <Loading />
       ) : (

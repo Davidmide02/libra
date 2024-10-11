@@ -22,7 +22,7 @@ export const UserNav = [
 ];
 
 export const AdminNav = [
-  { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
+  { name: "Dashboard", href: "/dashboard", icon: HomeIcon, current: true },
   { name: "User", href: "/user", icon: UsersIcon, current: false },
   {
     name: "Material",
