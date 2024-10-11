@@ -1,9 +1,9 @@
 export type Materialtype = {
   title: string;
   author: string[];
-  availability: boolean;
-  request: string;
-  status: string;
+  category: string;
+  isavailable: boolean;
+  requests: string;
   count: number;
 };
 
@@ -11,73 +11,73 @@ export const defaultData: Materialtype[] = [
   {
     title: "tanner",
     author: ["linsley"],
-    availability: true,
-    request: "pending",
-    status: "accepted",
+    category: "english",
+    isavailable: true,
+    requests: "pending",
     count: 3,
   },
   {
     title: "tandy",
     author: ["miller"],
-    availability: true,
-    request: "pending",
-    status: "rejected",
+    category: "english",
+    isavailable: true,
+    requests: "pending",
     count: 0,
   },
   {
     title: "joe",
     author: ["dirte"],
-    availability: false,
-    request: "pending",
-    status: "accepted",
+    category: "english",
+    isavailable: false,
+    requests: "pending",
     count: 5,
   },
   {
     title: "tanner",
     author: ["linsley"],
-    availability: true,
-    request: "pending",
-    status: "accepted",
+    category: "english",
+    isavailable: true,
+    requests: "pending",
     count: 3,
   },
   {
     title: "tandy",
     author: ["miller"],
-    availability: true,
-    request: "pending",
-    status: "rejected",
+    category: "english",
+    isavailable: true,
+    requests: "pending",
     count: 0,
   },
   {
     title: "joe",
     author: ["dirte"],
-    availability: false,
-    request: "pending",
-    status: "accepted",
+    category: "english",
+    isavailable: false,
+    requests: "pending",
     count: 5,
   },
   {
     title: "tanner",
     author: ["linsley"],
-    availability: true,
-    request: "pending",
-    status: "accepted",
+    category: "english",
+    isavailable: true,
+    requests: "pending",
     count: 3,
   },
   {
     title: "tandy",
     author: ["miller"],
-    availability: true,
-    request: "pending",
-    status: "rejected",
+    category: "english",
+    isavailable: true,
+    requests: "pending",
     count: 0,
   },
   {
     title: "joe",
     author: ["dirte"],
-    availability: false,
-    request: "pending",
-    status: "accepted",
+    category: "english",
+    isavailable: false,
+    requests: "pending",
     count: 5,
   },
 ];
