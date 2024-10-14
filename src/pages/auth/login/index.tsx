@@ -6,7 +6,6 @@ import { useAuth } from "../protectRoute/authProvider";
 import { useAddItem } from "../../../utility/tanstackQuery";
 import { Bounce, toast } from "react-toastify";
 import Loading from "../../../components/loader";
-// import axios from "axios";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");

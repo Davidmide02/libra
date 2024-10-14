@@ -48,11 +48,6 @@ const navFn = () => {
 
 const navigation = navFn();
 
-const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Log out", href: "/login" },
-];
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -283,16 +278,23 @@ export default function Layout() {
                     transition
                     className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                   >
-                    {userNavigation.map((item) => (
-                      <MenuItem key={item.name}>
-                        <Link
-                          to={item.href}
-                          className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50"
-                        >
-                          {item.name}
-                        </Link>
-                      </MenuItem>
-                    ))}
+                    <MenuItem>
+                      <Link
+                        to={"#"}
+                        className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50"
+                      >
+                        Your profile
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <p
+                        // to={"/login"}
+                        onClick={handleLogout}
+                        className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50 cursor-pointer"
+                      >
+                        Log out
+                      </p>
+                    </MenuItem>
                   </MenuItems>
                 </Menu>
               </div>
