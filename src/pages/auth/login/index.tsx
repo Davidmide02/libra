@@ -48,7 +48,9 @@ export default function Login() {
         });
 
         auth?.login();
-        navigate("/material");
+        if (loginUser?.role == "user") {
+          navigate("/material");
+        } else navigate("/adminMaterial");
       } catch (error: unknown) {
         // axio error type
         console.log(typeof error);

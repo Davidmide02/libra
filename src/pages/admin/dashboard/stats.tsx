@@ -82,16 +82,13 @@ export default function Statspage() {
                 )}
 
                 <span className="sr-only">
-          
-                  {item.changeType === "increase"
-                    ? "Increased"
-                    : "Decreased"}
+                  {item.changeType === "increase" ? "Increased" : "Decreased"}
                   by
                 </span>
                 {item.change}
               </p>
-              <div className="absolute inset-x-0 bottom-0 bg-indigo-400 px-4 py-4 sm:px-6"/>
-                {/* <div className="text-sm">
+              <div className="absolute inset-x-0 bottom-0 bg-indigo-400 px-4 py-4 sm:px-6" />
+              {/* <div className="text-sm">
                   <a
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"

@@ -22,8 +22,9 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserNav, AdminNav } from "../../router/routes";
+import { useAuth } from "../../pages/auth/protectRoute/authProvider";
 type UserRoleType = {
   role: string;
   email: string;
@@ -59,6 +60,13 @@ function classNames(...classes: string[]) {
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    console.log("cleared!");
+    auth?.logout();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -129,17 +137,17 @@ export default function Layout() {
                       </ul>
                     </li>
                     <li></li>
-                    <li className="mt-auto">
-                      <Link
+                    <li className="mt-auto" onClick={handleLogout}>
+                      {/* <Link
                         to="/login"
                         className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-indigo-400 hover:text-white"
-                      >
-                        <ArrowRightStartOnRectangleIcon
-                          aria-hidden="true"
-                          className="h-6 w-6 shrink-0"
-                        />
-                        Logout
-                      </Link>
+                      > */}
+                      <ArrowRightStartOnRectangleIcon
+                        aria-hidden="true"
+                        className="h-6 w-6 shrink-0"
+                      />
+                      Logout
+                      {/* </Link> */}
                     </li>
                   </ul>
                 </nav>
@@ -183,17 +191,17 @@ export default function Layout() {
                     })}
                   </ul>
                 </li>
-                <li className="mt-auto">
-                  <Link
+                <li className="mt-auto" onClick={handleLogout}>
+                  {/* <Link
                     to="/login"
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
-                  >
-                    <ArrowRightStartOnRectangleIcon
-                      aria-hidden="true"
-                      className="h-6 w-6 shrink-0"
-                    />
-                    Logout
-                  </Link>
+                  > */}
+                  <ArrowRightStartOnRectangleIcon
+                    aria-hidden="true"
+                    className="h-6 w-6 shrink-0"
+                  />
+                  Logout
+                  {/* </Link> */}
                 </li>
               </ul>
             </nav>
