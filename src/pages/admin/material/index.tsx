@@ -9,6 +9,9 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import CustomTable from "../../../components/customtable";
 import { useFetchItems } from "../../../utility/tanstackQuery";
 import Loading from "../../../components/loader";
+import { Button, Dialog, DialogPanel } from "@headlessui/react";
+import Form from "../form";
+import { useState } from "react";
 
 const columnHelper = createColumnHelper<Materialtype>();
 
@@ -75,8 +78,14 @@ const AdminMaterial = () => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+  const [isOpen, setIsOpen] = useState(false);
+  function open() {
+    setIsOpen(true);
+  }
 
-
+  function close() {
+    setIsOpen(false);
+  }
   return (
     <>
       {isPending ? (
@@ -90,12 +99,31 @@ const AdminMaterial = () => {
               <h1 className="text-2xl">Materials</h1>
             </div>
             <div className="add flex flex-col items-end mb-2">
-              <PlusIcon className="h-10 w-20 p-2 bg-gray-100 border-2 cursor-pointer"></PlusIcon>
+              <Button onClick={open}>
+                <PlusIcon className="h-10 w-20 p-2 bg-gray-100 border-2 cursor-pointer" />
+              </Button>
             </div>
           </div>
           <div className="w-full overflow-x-auto pb-20">
             <CustomTable table={table} />
           </div>
+
+          <Dialog
+            open={isOpen}
+            as="div"
+            className="relative focus:outline-none"
+            onClose={close}
+          >
+            <DialogPanel
+              transition
+              className="w-full rounded-xl p-2 duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+            >
+             
+              <div className="fixed inset-0 bg-gray-100 flex w-full items-center md:justify-center py-4">
+                <Form />
+              </div>
+            </DialogPanel>
+          </Dialog>
         </div>
       )}
     </>

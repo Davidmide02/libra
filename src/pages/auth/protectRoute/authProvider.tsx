@@ -26,9 +26,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (storedUser !== null) {
-      const user = (storedUser);
+      // const user = (storedUser);
       setIsAuthenticated(true);
-      console.log("let see=>:", user);
+      // console.log("let see=>:", user);
     }
     
     setLoading(false);
