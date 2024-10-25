@@ -1,11 +1,18 @@
 import { PhotoIcon } from "@heroicons/react/24/solid";
+import { Dispatch, SetStateAction } from "react";
+// import { React } from "react";
 
-export default function Form() {
+interface MyComponentProps {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const CreateForm: React.FC<MyComponentProps> = ({ setIsOpen }) => {
   return (
     <form>
+      <h3 className="text-center text-2xl font-semibold">Add Material</h3>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 items-center">
             <div className="sm:col-span-4">
               <label
                 htmlFor="title"
@@ -109,6 +116,7 @@ export default function Form() {
         <button
           type="button"
           className="text-sm font-semibold leading-6 text-gray-900"
+          onClick={() => setIsOpen(false)}
         >
           Cancel
         </button>
@@ -121,4 +129,5 @@ export default function Form() {
       </div>
     </form>
   );
-}
+};
+export default CreateForm;

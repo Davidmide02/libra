@@ -9,9 +9,10 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import CustomTable from "../../../components/customtable";
 import { useFetchItems } from "../../../utility/tanstackQuery";
 import Loading from "../../../components/loader";
-import { Button, Dialog, DialogPanel } from "@headlessui/react";
-import Form from "../form";
+import { Button } from "@headlessui/react";
+
 import { useState } from "react";
+import CreateForm from "../form";
 
 const columnHelper = createColumnHelper<Materialtype>();
 
@@ -63,7 +64,9 @@ const columns = [
     footer: "action",
   }),
 ];
-
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
 const AdminMaterial = () => {
   const queryKey = "Admin";
   const {
@@ -83,9 +86,9 @@ const AdminMaterial = () => {
     setIsOpen(true);
   }
 
-  function close() {
-    setIsOpen(false);
-  }
+  // function close() {
+  //   setIsOpen(false);
+  // }
   return (
     <>
       {isPending ? (
@@ -107,23 +110,13 @@ const AdminMaterial = () => {
           <div className="w-full overflow-x-auto pb-20">
             <CustomTable table={table} />
           </div>
-
-          <Dialog
-            open={isOpen}
-            as="div"
-            className="relative focus:outline-none"
-            onClose={close}
-          >
-            <DialogPanel
-              transition
-              className="w-full rounded-xl p-2 duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
-            >
-             
-              <div className="fixed inset-0 bg-gray-100 flex w-full items-center md:justify-center py-4">
-                <Form />
+          <div className="form">
+            <div className={classNames(isOpen ? "block" : "hidden")}>
+              <div className="absolute top-0 bg-gray-100 w-full p-4">
+              <CreateForm setIsOpen={setIsOpen} />
               </div>
-            </DialogPanel>
-          </Dialog>
+            </div>
+          </div>
         </div>
       )}
     </>
