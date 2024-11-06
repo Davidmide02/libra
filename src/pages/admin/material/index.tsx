@@ -3,7 +3,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Materialtype } from "./data";
+import { defaultData, Materialtype } from "./data";
 import Action from "../../../components/action";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import CustomTable from "../../../components/customtable";
@@ -11,7 +11,7 @@ import { useFetchItems } from "../../../utility/tanstackQuery";
 import Loading from "../../../components/loader";
 import { Button } from "@headlessui/react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateForm from "../form";
 
 const columnHelper = createColumnHelper<Materialtype>();
@@ -68,14 +68,20 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 const AdminMaterial = () => {
+  const [data, setData] = useState<Materialtype[]>(defaultData);
   const queryKey = "Admin";
   const {
     data: material,
     isPending,
     isError,
   } = useFetchItems("/admin", queryKey);
-  console.log(material?.allMaterials);
-  const data = material?.allMaterials;
+
+  useEffect(() => {
+    if (material) {
+      setData(material?.allMaterials);
+    }
+  }, [material]);
+
   const table = useReactTable({
     data,
     columns,
@@ -113,7 +119,7 @@ const AdminMaterial = () => {
           <div className="form">
             <div className={classNames(isOpen ? "block" : "hidden")}>
               <div className="absolute top-0 bg-gray-100 w-full p-4">
-              <CreateForm setIsOpen={setIsOpen} />
+                <CreateForm setIsOpen={setIsOpen} />
               </div>
             </div>
           </div>

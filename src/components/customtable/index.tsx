@@ -30,12 +30,12 @@ const CustomTable = <T,>({ table }: CustomTableProps<T>) => {
         {table.getRowModel().rows.map((row) => (
           <tr
             key={row.id}
-            className="sm:even:bg-gray-50 hover:bg-indigo-300 hover:text-white even:hover:bg-indigo-300"
+            className="sm:even:bg-gray-50 hover:bg-indigo-300 hover:text-white even:hover:bg-indigo-300 "
           >
             {row.getVisibleCells().map((cell) => (
               <td
                 key={cell.id}
-                className="text-brand-textBlack w-max max-w-full overflow-visible p-4 text-left text-sm"
+                className="text-brand-textBlack w-max max-w-full overflow-visible p-4 text-center text-sm"
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
