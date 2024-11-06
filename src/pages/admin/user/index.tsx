@@ -25,6 +25,7 @@ const columns = [
   }),
 
   columnHelper.accessor("status", {
+    cell: (info) => info.getValue() || "free",
     header: "Status",
     footer: "status",
   }),
@@ -44,14 +45,14 @@ const User = () => {
     data: user,
     isPending,
     isError,
-  } = useFetchItems("/admin/users", queryKey);
+  } = useFetchItems(`/admin/users`, queryKey);
+  console.log("let see", user.users[0].data);
 
   useEffect(() => {
     if (user) {
-      setData(user?.users);
+      setData(user?.users[0].data);
     }
   }, [user]);
-
 
   const table = useReactTable({
     data,
