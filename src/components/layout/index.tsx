@@ -22,43 +22,36 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserNav, AdminNav } from "../../router/routes";
-type UserRoleType = {
-  role: string;
-  email: string;
-  username: string;
-};
-const storedUser = localStorage.getItem("user");
+import { useAuth } from "../../pages/auth/protectRoute/authProvider";
+import { UserType } from "../../router";
+import { classNames } from "../../utility/classesStyle";
 
-const userRole: UserRoleType = storedUser
-  ? JSON.parse(storedUser)
-  : { role: "", email: "", username: "" };
-
-console.log(userRole);
-
-const navFn = () => {
-  if (userRole?.role === "user") {
-    return UserNav;
-  }
-
-  return AdminNav;
+export type UserProps = {
+  user: UserType | null;
 };
 
-const navigation = navFn();
-
-const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Log out", href: "/login" },
-];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Layout() {
+export default function Layout({ user }: UserProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    console.log("cleared!");
+    auth?.logout();
+    navigate("/login");
+  };
+
+  const navFn = () => {
+    if (user?.role === "user") {
+      return UserNav;
+    }
+
+    return AdminNav;
+  };
+
+  const navigation = navFn();
 
   return (
     <>
@@ -129,17 +122,20 @@ export default function Layout() {
                       </ul>
                     </li>
                     <li></li>
-                    <li className="mt-auto">
-                      <Link
+                    <li
+                      className="mt-auto group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-indigo-400 hover:text-white"
+                      onClick={handleLogout}
+                    >
+                      {/* <Link
                         to="/login"
                         className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-indigo-400 hover:text-white"
-                      >
-                        <ArrowRightStartOnRectangleIcon
-                          aria-hidden="true"
-                          className="h-6 w-6 shrink-0"
-                        />
-                        Logout
-                      </Link>
+                      > */}
+                      <ArrowRightStartOnRectangleIcon
+                        aria-hidden="true"
+                        className="h-6 w-6 shrink-0"
+                      />
+                      Logout
+                      {/* </Link> */}
                     </li>
                   </ul>
                 </nav>
@@ -183,17 +179,20 @@ export default function Layout() {
                     })}
                   </ul>
                 </li>
-                <li className="mt-auto">
-                  <Link
+                <li
+                  className="mt-auto group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-indigo-400 hover:text-white"
+                  onClick={handleLogout}
+                >
+                  {/* <Link
                     to="/login"
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
-                  >
-                    <ArrowRightStartOnRectangleIcon
-                      aria-hidden="true"
-                      className="h-6 w-6 shrink-0"
-                    />
-                    Logout
-                  </Link>
+                  > */}
+                  <ArrowRightStartOnRectangleIcon
+                    aria-hidden="true"
+                    className="h-6 w-6 shrink-0"
+                  />
+                  Logout
+                  {/* </Link> */}
                 </li>
               </ul>
             </nav>
@@ -263,7 +262,7 @@ export default function Layout() {
                         aria-hidden="true"
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                       >
-                        Mide
+                        {user?.email || "Mide"}
                       </span>
                       <ChevronDownIcon
                         aria-hidden="true"
@@ -275,23 +274,30 @@ export default function Layout() {
                     transition
                     className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                   >
-                    {userNavigation.map((item) => (
-                      <MenuItem key={item.name}>
-                        <Link
-                          to={item.href}
-                          className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50"
-                        >
-                          {item.name}
-                        </Link>
-                      </MenuItem>
-                    ))}
+                    <MenuItem>
+                      <Link
+                        to={"#"}
+                        className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50"
+                      >
+                        Your profile
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <p
+                        // to={"/login"}
+                        onClick={handleLogout}
+                        className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50 cursor-pointer"
+                      >
+                        Log out
+                      </p>
+                    </MenuItem>
                   </MenuItems>
                 </Menu>
               </div>
             </div>
           </div>
 
-          <main className="py-10">
+          <main className="py-0">
             <div className="px-4 sm:px-6 lg:px-8">
               <Outlet />
             </div>

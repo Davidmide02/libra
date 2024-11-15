@@ -5,7 +5,7 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-
+import { UserType } from "../../../router";
 interface AuthContextType {
   isAuthenticated: boolean;
   login: () => void;
@@ -19,27 +19,41 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+interface AuthProvidedProps {
+  children: ReactNode;
+  user?: UserType | null;
+  setUser: (user: UserType | null) => void;
+}
+
+export const AuthProvider = ({ children, setUser }: AuthProvidedProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const storedUser = localStorage.getItem("user");
 
   useEffect(() => {
-    if (storedUser !== null) {
-      const user = (storedUser);
-      setIsAuthenticated(true);
-      console.log("let see=>:", user);
+    const getUser = localStorage.getItem("localuser");
+    try {
+      const localUser = getUser ? JSON.parse(getUser) : null;
+      if (localUser) {
+        setIsAuthenticated(true);
+       
+        console.log("local ser here", localUser);
+
+        setUser(localUser);
+      }
+    } catch (error) {
+      console.error("Error parsing user data from localStorage:", error);
+      return;
     }
-    
     setLoading(false);
-  }, [storedUser]);
+  }, [setUser]);
 
   const login = () => {
     setIsAuthenticated(true);
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("localuser");
+    setUser(null);
     setIsAuthenticated(false);
   };
 

@@ -48,8 +48,6 @@ export default function Register({ setUser }: UserFormProps) {
     }),
     onSubmit: async (values) => {
       try {
-        // alert(JSON.stringify(values, null, 2));
-        // console.log(values.email, values.password);
         const newUser = await mutateAsync({
           username: values.username,
           email: values.email,
@@ -57,6 +55,7 @@ export default function Register({ setUser }: UserFormProps) {
         });
         console.log("new user here", newUser);
         setUser(newUser);
+        localStorage.setItem("localuser", JSON.stringify(newUser));
         toast.success(newUser?.message || "Registered Successfully", {
           position: "top-right",
           autoClose: 5000,

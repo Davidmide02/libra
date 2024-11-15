@@ -47,7 +47,7 @@ export default function Statspage() {
         {stats.map((item) => (
           <div
             key={item.id}
-            className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6 hover:translate-y-2"
+            className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6 hover:scale-105"
           >
             <dt>
               <div className="absolute rounded-md bg-indigo-500 p-3">
@@ -82,24 +82,21 @@ export default function Statspage() {
                 )}
 
                 <span className="sr-only">
-          
-                  {item.changeType === "increase"
-                    ? "Increased"
-                    : "Decreased"}{" "}
-                  by{" "}
+                  {item.changeType === "increase" ? "Increased" : "Decreased"}
+                  by
                 </span>
                 {item.change}
               </p>
-              <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
-                <div className="text-sm">
+              <div className="absolute inset-x-0 bottom-0 bg-indigo-400 px-4 py-4 sm:px-6" />
+              {/* <div className="text-sm">
                   <a
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     View all<span className="sr-only"> {item.name} stats</span>
                   </a>
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
             </dd>
           </div>
         ))}
