@@ -24,14 +24,14 @@ const CustomRoute = () => {
   console.log("user route here", user);
 
   return (
-    <AuthProvider>
+    <AuthProvider user={user} setUser={setUser}>
       <div className="w-full h-full">
         <Routes>
           <Route
             path="/"
             element={
               <ProtectedRoute>
-                <Layout />
+                <Layout user={user} />
               </ProtectedRoute>
             }
             errorElement={<p>Error Occured...Ooop!</p>}
@@ -57,12 +57,18 @@ const CustomRoute = () => {
           </Route>
           {/* protected end here */}
           <Route index path="/" element={<Suspense>{<Home />}</Suspense>} />
-          <Route path="/logout" element={<Suspense>{<Login />}</Suspense>} />
+          <Route
+            path="/logout"
+            element={<Suspense>{<Login setUser={setUser} />}</Suspense>}
+          />
           <Route
             path="/register"
             element={<Suspense>{<Register setUser={setUser} />}</Suspense>}
           />
-          <Route path="/login" element={<Suspense>{<Login />}</Suspense>} />
+          <Route
+            path="/login"
+            element={<Suspense>{<Login setUser={setUser} />}</Suspense>}
+          />
         </Routes>
       </div>
     </AuthProvider>

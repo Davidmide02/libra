@@ -6,11 +6,14 @@ import { useAuth } from "../protectRoute/authProvider";
 import { useAddItem } from "../../../utility/tanstackQuery";
 import { Bounce, toast } from "react-toastify";
 import Loading from "../../../components/loader";
+import { UserType } from "../../../router";
+import { classNames } from "../../../utility/classesStyle";
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-export default function Login() {
+
+type UserFormProps = {
+  setUser: (user: UserType) => void;
+};
+export default function Login({ setUser }: UserFormProps) {
   const { mutateAsync, isPending } = useAddItem("auth/login");
   const auth = useAuth();
   const navigate = useNavigate();
@@ -32,7 +35,9 @@ export default function Login() {
           email: values.email,
           password: values.password,
         });
-        localStorage.setItem("user", JSON.stringify(loginUser));
+
+        setUser(loginUser);
+        localStorage.setItem("localuser", JSON.stringify(loginUser));
         console.log("user login:", loginUser);
         toast.success("Login Successfully", {
           position: "top-right",

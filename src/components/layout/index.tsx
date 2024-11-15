@@ -25,34 +25,14 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserNav, AdminNav } from "../../router/routes";
 import { useAuth } from "../../pages/auth/protectRoute/authProvider";
-type UserRoleType = {
-  role: string;
-  email: string;
-  username: string;
-};
-const storedUser = localStorage.getItem("user");
+import { UserType } from "../../router";
+import { classNames } from "../../utility/classesStyle";
 
-const userRole: UserRoleType = storedUser
-  ? JSON.parse(storedUser)
-  : { role: "", email: "", username: "" };
-
-console.log(userRole);
-
-const navFn = () => {
-  if (userRole?.role === "user") {
-    return UserNav;
-  }
-
-  return AdminNav;
+export type UserProps = {
+  user: UserType | null;
 };
 
-const navigation = navFn();
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Layout() {
+export default function Layout({ user }: UserProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const auth = useAuth();
@@ -62,6 +42,16 @@ export default function Layout() {
     auth?.logout();
     navigate("/login");
   };
+
+  const navFn = () => {
+    if (user?.role === "user") {
+      return UserNav;
+    }
+
+    return AdminNav;
+  };
+
+  const navigation = navFn();
 
   return (
     <>
@@ -189,7 +179,10 @@ export default function Layout() {
                     })}
                   </ul>
                 </li>
-                <li className="mt-auto group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-indigo-400 hover:text-white" onClick={handleLogout}>
+                <li
+                  className="mt-auto group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-indigo-400 hover:text-white"
+                  onClick={handleLogout}
+                >
                   {/* <Link
                     to="/login"
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
@@ -269,7 +262,7 @@ export default function Layout() {
                         aria-hidden="true"
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                       >
-                        Mide
+                        {user?.email || "Mide"}
                       </span>
                       <ChevronDownIcon
                         aria-hidden="true"
