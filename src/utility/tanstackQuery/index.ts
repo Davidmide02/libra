@@ -28,10 +28,15 @@ const setHeaders = (options?: { contentType?: string }) => {
   return headers;
 };
 
-const fetchItem = async (enpoint: string) => {
+const fetchItem = async (
+  enpoint: string,
+  options?: { contentType?: string }
+) => {
   try {
     const response = await instance.get(enpoint, {
-      headers: setHeaders(),
+      headers: setHeaders({
+        contentType: options?.contentType || "application/json",
+      }),
     });
     return response.data;
   } catch (error) {

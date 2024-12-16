@@ -4,11 +4,14 @@ import logo from "../../../assets/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../protectRoute/authProvider";
 import { useAddItem } from "../../../utility/tanstackQuery";
-import { Bounce, toast } from "react-toastify";
 import Loading from "../../../components/loader";
 import { UserType } from "../../../router";
 import { classNames } from "../../../utility/classesStyle";
-
+import {
+  toastError,
+  toastSuccess,
+  toastWarning,
+} from "../../../utility/toasterFn";
 
 type UserFormProps = {
   setUser: (user: UserType) => void;
@@ -39,17 +42,7 @@ export default function Login({ setUser }: UserFormProps) {
         setUser(loginUser);
         localStorage.setItem("localuser", JSON.stringify(loginUser));
         console.log("user login:", loginUser);
-        toast.success("Login Successfully", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
+        toastSuccess("Login Successfully");
 
         auth?.login();
         if (loginUser?.role == "user") {
@@ -61,29 +54,9 @@ export default function Login({ setUser }: UserFormProps) {
         console.error("login fn error:", error);
         if (typeof error === "string") {
           console.log("upper error:", error);
-          toast.warning(error, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
+          toastWarning(error);
         } else {
-          toast.error("Unknown error occur....", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
+          toastError("Unknown error kindly retry");
         }
       }
     },
@@ -276,18 +249,3 @@ export default function Login({ setUser }: UserFormProps) {
     </>
   );
 }
-
-// console.log("Cannot log user in. Try again please", error);
-// console.log('access error', error)
-// const errorMessage = error.response?.data?.message || error.message || "Unknown error occurred";
-// toast.error("Error occured. Try again", {
-//   position: "top-right",
-//   autoClose: 5000,
-//   hideProgressBar: false,
-//   closeOnClick: true,
-//   pauseOnHover: true,
-//   draggable: true,
-//   progress: undefined,
-//   theme: "light",
-//   transition: Bounce,
-// });

@@ -14,7 +14,7 @@ import Dashboard from "../pages/admin/dashboard";
 
 export type UserType = {
   message: string;
-  username?: string;
+  userId?: string;
   email: string;
   role: string;
   token: string;
